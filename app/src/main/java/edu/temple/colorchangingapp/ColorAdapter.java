@@ -2,6 +2,7 @@ package edu.temple.colorchangingapp;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -11,35 +12,39 @@ import java.util.ArrayList;
 public class ColorAdapter extends BaseAdapter {
 
     Context context;
-    ArrayList<CustomColor> items;
+    String[] color;
     int colors[];
 
-    public ColorAdapter(Context context, ArrayList<CustomColor> items){
-        this.context = context;
-        this.items = items;
 
-        colors = new int[11];
-        colors[0] = Color.WHITE;
-        colors[1] = Color.RED;
-        colors[2] = Color.YELLOW;
-        colors[3] = Color.GREEN;
-        colors[4] = Color.LTGRAY;
-        colors[5] = Color.BLUE;
-        colors[6] = Color.GRAY;
+    public ColorAdapter(Context context, String[] color){
+        this.context = context;
+        this.color = color;
+
+
+        colors = new int[12];
+        colors[0] = Color.RED;
+        colors[1] = Color.YELLOW;
+        colors[2] = Color.GREEN;
+        colors[3] = Color.LTGRAY;
+        colors[4] = Color.BLUE;
+        colors[5] = Color.GRAY;
+        colors[6] = Color.WHITE;
         colors[7] = Color.BLACK;
         colors[8] = Color.CYAN;
         colors[9] = Color.DKGRAY;
         colors[10] = Color.MAGENTA;
+        colors[11] = Color.RED;
+
     }
 
     @Override
     public int getCount() {
-        return items.size();
+        return color.length;
     }
 
     @Override
     public Object getItem(int position) {
-        return items.get(position);
+        return color[position];
     }
 
     @Override
@@ -53,12 +58,13 @@ public class ColorAdapter extends BaseAdapter {
         TextView textView;
         if (convertView == null) {
             textView = new TextView(context);
-            textView.setTextSize(20);
-            textView.setPadding(8,8,8,8);
-        }
-        else
-            textView = (TextView) convertView;
 
+        } else{
+            textView = (TextView) convertView;
+        }
+
+        textView.setTextSize(20);
+        textView.setPadding(28,28,28,28);
         textView.setText(getItem(position).toString());
         textView.setBackgroundColor(colors[position % colors.length]);
         return textView;

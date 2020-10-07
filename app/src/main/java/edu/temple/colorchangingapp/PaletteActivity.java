@@ -1,8 +1,11 @@
 package edu.temple.colorchangingapp;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -14,61 +17,24 @@ import java.util.ArrayList;
 
 public class PaletteActivity extends AppCompatActivity {
 
-
-    private ArrayList<CustomColor> items = new ArrayList<>();
-    private ColorAdapter adapter;
-    private boolean first = true;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        GridView gridview = (GridView) findViewById(R.id.gridview);
+        String[] color = {"RED","YELLOW","GREEN","LIGHTGREY","BLUE","GRAY","WHITE","BLACK", "CYAN","DRAKGREY","MAGENTA","RED"};
 
-       // items = new ArrayList<>();
-        addColor();
-
-        adapter = new ColorAdapter(this, items);
+        final GridView gridview = (GridView) findViewById(R.id.gridview);
+        final ColorAdapter adapter = new ColorAdapter(this, color);
         gridview.setAdapter(adapter);
 
-        gridview.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
-                if (first) {
-                    first = false;
-                    return;
-                }
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(PaletteActivity.this, CanvasActivity.class);
-                String color = items.get(position).getColor();
-                intent.putExtra("color", color);
-                startActivity(intent);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
+                intent.putExtra("Color", position); // put image data in Intent
+                startActivity(intent); // start Intent
             }
         });
     }
-
-    private void addColor() {
-        items.add(new CustomColor(getString(R.string.white),"#FFFFFF"));
-        items.add(new CustomColor(getString(R.string.blue),"#0000ff"));
-        items.add(new CustomColor(getString(R.string.red),"#ff0000"));
-        items.add(new CustomColor(getString(R.string.yellow),"#ffff00"));
-        items.add(new CustomColor(getString(R.string.magenta),"#ff00ff"));
-        items.add(new CustomColor(getString(R.string.lig),"#cccccc"));
-        items.add(new CustomColor(getString(R.string.green),"#00ff00"));
-        items.add(new CustomColor(getString(R.string.na),"#FFDEAD"));
-        items.add(new CustomColor(getString(R.string.greenyellow),"#ADFF2F"));
-        items.add(new CustomColor(getString(R.string.green),"#00ff00"));
-        items.add(new CustomColor(getString(R.string.na),"#FFDEAD"));
-        items.add(new CustomColor(getString(R.string.greenyellow),"#ADFF2F"));
-
-    }
-
-
-
 }
