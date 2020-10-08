@@ -22,6 +22,9 @@ public class PaletteActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        if (getSupportActionBar()!= null)
+            getSupportActionBar().setTitle("PaletteActivity");
+
         String[] color = {"RED","YELLOW","GREEN","LIGHTGREY","BLUE","GRAY","WHITE","BLACK", "CYAN","DRAKGREY","MAGENTA","RED"};
 
         final GridView gridview = (GridView) findViewById(R.id.gridview);
