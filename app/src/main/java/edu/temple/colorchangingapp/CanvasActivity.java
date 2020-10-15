@@ -29,10 +29,7 @@ public class CanvasActivity extends AppCompatActivity {
         String color = getIntent().getStringExtra(PaletteActivity.colorSelected);
         ((TextView) findViewById(R.id.textView)).setText(label);
         findViewById(R.id.gridlayout).setBackgroundColor(Color.parseColor(mycolor.toLowerCase()));
-
-
-
-
+        
     }
 
 }
